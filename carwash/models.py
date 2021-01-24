@@ -5,6 +5,7 @@ from .vehichle_type_choices import VehicleTypeChoices
 class CardModel(models.Model):
     vip = models.CharField(verbose_name='Vip Status', max_length=255)
     limit = models.PositiveSmallIntegerField(verbose_name='Day limit', default=0)
+    card_administrator = models.ForeignKey(to='carwash.Administrator', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.vip

@@ -16,7 +16,7 @@ class ClientModel(admin.ModelAdmin):
 @admin.register(CardModel)
 class StatusModel(admin.ModelAdmin):
     search_fields = ['vip']
-    list_display = ['vip', 'limit']
+    list_display = ['vip', 'limit', 'card_administrator']
 
 
 @admin.register(WasherModel)
@@ -28,7 +28,6 @@ class WasherModel(admin.ModelAdmin):
 @admin.register(Administrator)
 class AdministratorModel(admin.ModelAdmin):
     inlines = [AdministratorLocationInline]
-    readonly_fields = ['personal_number']
 
 
 @admin.register(Location)
