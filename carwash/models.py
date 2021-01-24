@@ -2,7 +2,7 @@ from django.db import models
 from .vehichle_type_choices import VehicleTypeChoices
 
 
-class CardModel(models.Model):
+class Card(models.Model):
     vip = models.CharField(verbose_name='Vip Status', max_length=255)
     limit = models.PositiveSmallIntegerField(verbose_name='Day limit', default=0)
     card_administrator = models.ForeignKey(to='carwash.Administrator', on_delete=models.CASCADE)
@@ -15,11 +15,11 @@ class CardModel(models.Model):
         verbose_name_plural = 'Cards'
 
 
-class ClientModel(models.Model):
+class Client(models.Model):
     type = models.PositiveSmallIntegerField("Vehicle Type", choices=VehicleTypeChoices.choices,
                                             default=VehicleTypeChoices.Sedan)
     plate_number = models.CharField(max_length=11, unique=True)
-    discount_card = models.ForeignKey('carwash.CardModel', on_delete=models.PROTECT)
+    discount_card = models.ForeignKey('carwash.Card', on_delete=models.PROTECT)
 
     def __str__(self):
         return self.plate_number
@@ -29,11 +29,11 @@ class ClientModel(models.Model):
         verbose_name_plural = 'Clients'
 
 
-class WasherModel(models.Model):
+class Washer(models.Model):
     full_name = models.CharField(verbose_name='Full name', max_length=255, unique=True)
     age = models.PositiveSmallIntegerField(verbose_name='Age', default=0)
     phone = models.CharField(verbose_name='Mobile phone number', max_length=9, unique=True)
-    order = models.OneToOneField('carwash.ClientModel', on_delete=models.PROTECT)
+    order = models.OneToOneField('carwash.Client', on_delete=models.PROTECT)
 
     def __str__(self):
         return self.full_name
@@ -47,7 +47,7 @@ class Administrator(models.Model):
     full_name = models.CharField(verbose_name='Full Name', max_length=255, unique=True)
     age = models.PositiveSmallIntegerField(verbose_name='Age', default=0)
     personal_number = models.CharField(max_length=11, unique=True)
-    locations = models.ManyToManyField(to='carwash.Location', through='AdministratorLocation')
+    locations = models.ManyToManyField(to='carwash.Location')
 
     def __str__(self):
         return self.full_name

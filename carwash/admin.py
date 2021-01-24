@@ -1,5 +1,5 @@
 from django.contrib import admin
-from carwash.models import ClientModel, CardModel, WasherModel, Administrator, Location, AdministratorLocation
+from carwash.models import Client, Card, Washer, Administrator, Location, AdministratorLocation
 
 
 class AdministratorLocationInline(admin.TabularInline):
@@ -7,29 +7,29 @@ class AdministratorLocationInline(admin.TabularInline):
     extra = 1
 
 
-@admin.register(ClientModel)
-class ClientModel(admin.ModelAdmin):
+@admin.register(Client)
+class ClientAdmin(admin.ModelAdmin):
     list_filter = ['discount_card']
     list_display = ['__str__', 'type', 'discount_card']
 
 
-@admin.register(CardModel)
-class StatusModel(admin.ModelAdmin):
+@admin.register(Card)
+class StatusAdmin(admin.ModelAdmin):
     search_fields = ['vip']
     list_display = ['vip', 'limit', 'card_administrator']
 
 
-@admin.register(WasherModel)
-class WasherModel(admin.ModelAdmin):
-    list_display = ['__str__', 'phone', 'order' ]
+@admin.register(Washer)
+class WasherAdmin(admin.ModelAdmin):
+    list_display = ['__str__', 'phone', 'order']
     readonly_fields = ['phone']
 
 
 @admin.register(Administrator)
-class AdministratorModel(admin.ModelAdmin):
+class AdministratorAdmin(admin.ModelAdmin):
     inlines = [AdministratorLocationInline]
 
 
 @admin.register(Location)
-class LocationModel(admin.ModelAdmin):
+class LocationAdmin(admin.ModelAdmin):
     inlines = [AdministratorLocationInline]
