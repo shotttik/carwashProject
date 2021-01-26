@@ -18,7 +18,7 @@ class Coupon(models.Model):
         verbose_name_plural = 'Coupons'
 
 
-class WashedVehicle(models.Model):
+class Vehicle(models.Model):
     type = models.PositiveSmallIntegerField("Vehicle Type", choices=VehicleTypeChoices.choices,
                                             default=VehicleTypeChoices.Sedan)
     started = models.DateTimeField(verbose_name='Started')
@@ -34,8 +34,8 @@ class WashedVehicle(models.Model):
         return self.plate_number
 
     class Meta:
-        verbose_name = 'Washed Vehicle'
-        verbose_name_plural = 'Washed Vehicles'
+        verbose_name = 'Vehicle'
+        verbose_name_plural = 'Vehicles'
 
 
 class Washer(models.Model):
@@ -58,6 +58,7 @@ class Washer(models.Model):
 class Manager(models.Model):
     full_name = models.CharField(verbose_name='Full Name', max_length=255, unique=True)
     age = models.PositiveSmallIntegerField(verbose_name='Age', default=0)
+    email = models.EmailField(verbose_name="E-mail", unique=True)
     phone = models.CharField(verbose_name='Mobile phone number', max_length=9, unique=True)
     personal_number = models.CharField(max_length=11, unique=True)
 
