@@ -1,35 +1,23 @@
 from django.contrib import admin
-from carwash.models import Client, Card, Washer, Administrator, Location, AdministratorLocation
+from carwash.models import WashedVehicle, Coupon, Washer, Manager
 
 
-class AdministratorLocationInline(admin.TabularInline):
-    model = AdministratorLocation
-    extra = 1
+@admin.register(WashedVehicle)
+class WashedVehicleAdmin(admin.ModelAdmin):
+    list_filter = ['coupons', 'type']
+    list_display = ['type', 'plate_number', 'started', 'finished', 'washer']
 
 
-@admin.register(Client)
-class ClientAdmin(admin.ModelAdmin):
-    list_filter = ['discount_card']
-    list_display = ['__str__', 'type', 'discount_card']
-
-
-@admin.register(Card)
-class StatusAdmin(admin.ModelAdmin):
-    search_fields = ['vip']
-    list_display = ['vip', 'limit', 'card_administrator']
+@admin.register(Coupon)
+class CouponAdmin(admin.ModelAdmin):
+    list_display = ['vip_status', 'gift', ]
 
 
 @admin.register(Washer)
 class WasherAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'phone', 'order']
-    readonly_fields = ['phone']
+    list_display = ['__str__', 'phone', 'joined', 'manager']
 
 
-@admin.register(Administrator)
-class AdministratorAdmin(admin.ModelAdmin):
-    inlines = [AdministratorLocationInline]
-
-
-@admin.register(Location)
-class LocationAdmin(admin.ModelAdmin):
-    inlines = [AdministratorLocationInline]
+@admin.register(Manager)
+class ManagerAdmin(admin.ModelAdmin):
+    list_display = ['__str__', 'age', 'phone']

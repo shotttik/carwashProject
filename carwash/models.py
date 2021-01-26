@@ -1,39 +1,51 @@
 from django.db import models
-from .vehichle_type_choices import VehicleTypeChoices
+from carwash.vehichle_type_choices import VehicleTypeChoices
+from carwash.vip_status_choices import VipStatusChoices
 
 
-class Card(models.Model):
-    vip = models.CharField(verbose_name='Vip Status', max_length=255)
-    limit = models.PositiveSmallIntegerField(verbose_name='Day limit', default=0)
-    card_administrator = models.ForeignKey(to='carwash.Administrator', on_delete=models.CASCADE)
+# იდეაში ერთჯერადი კუპონებია.
+class Coupon(models.Model):
+    vip_status = models.CharField(max_length=255, choices=VipStatusChoices.choices,
+                                  default=VipStatusChoices.Bronze)
+    discount = models.CharField(max_length=255, verbose_name='Discount')
+    gift = models.TextField(verbose_name='Gift', blank=True)  # კუპონი არ წაიშლება შეიცვლება ფასდაკლება ან საჩუქარი.
 
     def __str__(self):
-        return self.vip
+        return self.vip_status
 
     class Meta:
-        verbose_name = 'Card'
-        verbose_name_plural = 'Cards'
+        verbose_name = 'Coupon'
+        verbose_name_plural = 'Coupons'
 
 
-class Client(models.Model):
+class WashedVehicle(models.Model):
     type = models.PositiveSmallIntegerField("Vehicle Type", choices=VehicleTypeChoices.choices,
                                             default=VehicleTypeChoices.Sedan)
-    plate_number = models.CharField(max_length=11, unique=True)
-    discount_card = models.ForeignKey('carwash.Card', on_delete=models.PROTECT)
+    started = models.DateTimeField(verbose_name='Started')
+    finished = models.DateTimeField(verbose_name='Finished', auto_now=True)  # გარეცხვის შემდეგ შედის ბაზაში
+    plate_number = models.CharField(max_length=15)  # unique=False რათა ბევრჯერ გაირეცხოს
+    coupons = models.ForeignKey(to='carwash.Coupon', on_delete=models.PROTECT,
+                                blank=True, null=True)  # კუპონის გარეშე მანქანის გარეცხვა
+    washer = models.ForeignKey(to='carwash.Washer',
+                               on_delete=models.SET_NULL,  # მრეცხავის წაშლის შემთხვევაში გარეცხილი მანქანა რომ დარჩეს
+                               null=True)
 
     def __str__(self):
         return self.plate_number
 
     class Meta:
-        verbose_name = 'Client'
-        verbose_name_plural = 'Clients'
+        verbose_name = 'Washed Vehicle'
+        verbose_name_plural = 'Washed Vehicles'
 
 
 class Washer(models.Model):
     full_name = models.CharField(verbose_name='Full name', max_length=255, unique=True)
     age = models.PositiveSmallIntegerField(verbose_name='Age', default=0)
     phone = models.CharField(verbose_name='Mobile phone number', max_length=9, unique=True)
-    order = models.OneToOneField('carwash.Client', on_delete=models.PROTECT)
+    joined = models.DateTimeField(verbose_name="Joined", auto_now=True)
+    manager = models.ForeignKey(to='carwash.Manager',
+                                   on_delete=models.SET_NULL,  # მენეჯერის წაშლის შემთხვევაში მრეცხავი რომ ბაზაში დარჩეს
+                                   null=True)
 
     def __str__(self):
         return self.full_name
@@ -43,24 +55,11 @@ class Washer(models.Model):
         verbose_name_plural = 'Washers'
 
 
-class Administrator(models.Model):
+class Manager(models.Model):
     full_name = models.CharField(verbose_name='Full Name', max_length=255, unique=True)
     age = models.PositiveSmallIntegerField(verbose_name='Age', default=0)
+    phone = models.CharField(verbose_name='Mobile phone number', max_length=9, unique=True)
     personal_number = models.CharField(max_length=11, unique=True)
-    locations = models.ManyToManyField(to='carwash.Location')
 
     def __str__(self):
         return self.full_name
-
-
-class Location(models.Model):
-    adress = models.CharField(verbose_name='Adress', max_length=255)
-    administrators = models.ManyToManyField(to='carwash.Administrator', through='AdministratorLocation')
-
-    def __str__(self):
-        return self.adress
-
-
-class AdministratorLocation(models.Model):
-    administrator = models.ForeignKey(to='carwash.Administrator', on_delete=models.CASCADE)
-    location = models.ForeignKey(to='carwash.Location', on_delete=models.CASCADE)
