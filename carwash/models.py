@@ -70,6 +70,7 @@ class Manager(models.Model):
     email = models.EmailField(verbose_name="E-mail", unique=True)
     phone = models.CharField(verbose_name='Mobile phone number', max_length=9, unique=True)
     personal_number = models.CharField(max_length=11, unique=True)
+    image = models.ImageField(upload_to='images/')
 
     def __str__(self):
         return self.full_name
