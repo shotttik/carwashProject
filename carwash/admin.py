@@ -9,7 +9,7 @@ class CouponAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['type', 'plate_number', 'price', 'washer']
+    list_display = ['type', 'plate_number', 'price', 'washer', 'earned']
     list_filter = ['type', 'washer', 'plate_number']
 
 

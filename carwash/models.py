@@ -37,7 +37,7 @@ class Order(models.Model):
     coupons = models.ForeignKey(to='carwash.Coupon',
                                 on_delete=models.PROTECT,  # კუპონი არ წაიშლება შეიცვლება ფასდაკლება ან საჩუქარი.
                                 blank=True, null=True)  # კუპონის გარეშე მანქანის გარეცხვა
-    price = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    price = models.PositiveIntegerField(verbose_name="Price", default=0)
     washer = models.ForeignKey(to='carwash.Washer',
                                on_delete=models.SET_NULL,  # მრეცხავის წაშლის შემთხვევაში გარეცხილი მანქანა რომ დარჩეს
                                null=True)
@@ -48,6 +48,10 @@ class Order(models.Model):
     class Meta:
         verbose_name = 'Order'
         verbose_name_plural = 'Orders'
+
+    def earned(self):
+        earn = self.price*0.15
+        return earn
 
 
 class Washer(models.Model):
