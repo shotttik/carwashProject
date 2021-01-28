@@ -51,6 +51,7 @@ class Washer(models.Model):
     age = models.PositiveSmallIntegerField(verbose_name='Age', default=0)
     phone = models.CharField(verbose_name='Mobile phone number', max_length=9, unique=True)
     joined = models.DateTimeField(verbose_name="Joined", auto_now=True)
+    image = models.ImageField(upload_to='images/')
 
     def __str__(self):
         return self.full_name
