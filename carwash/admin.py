@@ -1,11 +1,5 @@
 from django.contrib import admin
-from carwash.models import Vehicle, Coupon, Washer, Manager
-
-
-@admin.register(Vehicle)
-class VehicleAdmin(admin.ModelAdmin):
-    list_filter = ['coupons', 'type']
-    list_display = ['type', 'plate_number', 'started', 'finished']
+from carwash.models import Coupon, Washer, Manager, Order, Blog
 
 
 @admin.register(Coupon)
@@ -13,11 +7,22 @@ class CouponAdmin(admin.ModelAdmin):
     list_display = ['vip_status', 'discount', 'gift', ]
 
 
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['type', 'plate_number', 'price', 'washer']
+    list_filter = ['type', 'washer', 'plate_number']
+
+
 @admin.register(Washer)
 class WasherAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'phone', 'joined', 'manager']
+    list_display = ['__str__', 'phone', 'joined']
 
 
 @admin.register(Manager)
 class ManagerAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'age', 'phone', 'email']
+
+
+@admin.register(Blog)
+class BlogAdmin(admin.ModelAdmin):
+    list_display = ['title', 'pub_date', 'manager']
