@@ -1,12 +1,12 @@
-from django.db.models import IntegerChoices
+from django.db.models import TextChoices
 
 
-class VehicleTypeChoices(IntegerChoices):
-    Sedan = 1
-    Coupe = 2
-    Jeep = 3
-    HATCHBACK = 4
-    WAGON = 5
-    SUV = 6
-    MINIVAN = 7
-    PICKUP = 8
+class VehicleTypeChoices(TextChoices):
+    SEDAN = "SEDAN"
+    COUPE = "COUPE"
+    JEEP = "JEEP"
+    HATCHBACK = "HATCHBACK"
+    WAGON = "WAGON"
+    SUV = "SUV"
+    MINIVAN = "MINIVAN"
+    PICKUP = "PICKUP"

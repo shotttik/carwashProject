@@ -23,17 +23,18 @@ class Coupon(models.Model):
         verbose_name = 'Coupon'
         verbose_name_plural = 'Coupons'
 
+
 '''
     ორდერში ავტომობილის ინფორმაცია იმიტომ მოვაქციე რომ ავტომობილი
 '''
 
 
 class Order(models.Model):
-    type = models.PositiveSmallIntegerField("Vehicle Type", choices=VehicleTypeChoices.choices,
-                                            default=VehicleTypeChoices.Sedan)
+    type = models.CharField(max_length=255, verbose_name="Vehicle Type", choices=VehicleTypeChoices.choices,
+                            default=VehicleTypeChoices.SEDAN)
     plate_number = models.CharField(max_length=15, unique=False)  # ერთი ავტომობილი ბევრჯერ გაირეცხოს
     started = models.DateTimeField(verbose_name='Started')
-    finished = models.DateTimeField(verbose_name='Finished', auto_now_add=True)  # გარეცხვის შემდეგ შედის ბაზაში
+    finished = models.DateTimeField(verbose_name='Finished', auto_now=True)  # გარეცხვის შემდეგ შედის ბაზაში
     coupons = models.ForeignKey(to='carwash.Coupon',
                                 on_delete=models.PROTECT,  # კუპონი არ წაიშლება შეიცვლება ფასდაკლება ან საჩუქარი.
                                 blank=True, null=True)  # კუპონის გარეშე მანქანის გარეცხვა
