@@ -48,6 +48,11 @@
         }
     </style>
 
+    <style>
+        .center {
+    margin-left: auto;
+    margin-right: auto;
+}   </style>
   </head>
   <body>
 
@@ -81,7 +86,43 @@
 <br><br><br>
 
 <main>
-
+<div class="container-fluid">
+  <div class="row">
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <h2>Section title</h2>
+      <div class="table-responsive">
+        <table class="table table-striped center">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Vehicle Type</th>
+              <th>Plate number</th>
+                <th>Started</th>
+                <th>Finished</th>
+              <th>Price $</th>
+                <th>Coupon</th>
+              <th>Washer</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for order in orders %}
+            <tr>
+              <td>{{ order.pk }}</td>
+              <td>{{ order.type }}</td>
+              <td>{{ order.plate_number }}</td>
+              <td>{{ order.started }}</td>
+                <td>{{ order.finished }}</td>
+              <td>{{ order.price }}</td>
+                <td>{{ order.coupons}}</td>
+                <td>{{ order.washer }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
 
   <!-- FOOTER -->
   <footer class="container text-center">
