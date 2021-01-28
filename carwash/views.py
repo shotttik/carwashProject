@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from carwash.models import Coupon, Manager, Washer
+from carwash.models import Coupon, Manager, Washer, Blog
 
 
 def home(request):
@@ -12,3 +12,8 @@ def home(request):
 def about(request):
     managers = Manager.objects.all
     return render(request, 'about.html', {'managers': managers})
+
+
+def blog(request):
+    blogs = Blog.objects.all
+    return render(request, 'blog.html', {'blogs': blogs})

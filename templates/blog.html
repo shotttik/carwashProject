@@ -62,16 +62,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link " href="#">Home</a>
+              <a class="nav-link" href="#">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Services</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="">About us</a>
+              <a class="nav-link" href="#">About us</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link "  href="#">News</a>
+                <a class="nav-link active" aria-current="page" href="">News</a>
             </li>
           </ul>
         </div>
@@ -83,26 +83,22 @@
 <main>
 
 
+  <!-- Marketing messaging and featurettes
+  ================================================== -->
+  <!-- Wrap the rest of the page in another container to center all the content. -->
+
   <div class="container marketing">
 
     <!-- Three columns of text below the carousel -->
-    <div class="row">
-        {% for manager in managers.all %}
-      <div class="col-lg-4">
-        <img class="bd-placeholder-img rounded-circle" height=250 width=250 src="{{ manager.image.url }}" />
-
-        <h2>{{ manager.full_name }}</h2>
-        <p>{{ manager.email }}</p>
-        <p><a class="btn btn-secondary"   href="#" role="button">View details &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-        {% endfor %}
-    </div><!-- /.row -->
-  <br>
-    <div class="text text-center" style="color:saddlebrown">
-        <h4>Coupon Statuses Active</h4>
-    </div>
 
 
+
+    <!-- START THE FEATURETTES -->
+
+
+
+
+    <!-- /END THE FEATURETTES -->
 
   </div><!-- /.container -->
 
