@@ -95,7 +95,22 @@
 
     <!-- START THE FEATURETTES -->
 
-
+        <div class="container">
+        <h1 class="text-center pt-3">Superoperator News</h1>
+        <p class="text-center pt-3">Read our latest news & articles, check event dates, and learn from industry insights & more.</p>
+        <br>
+        <br>
+        <h2>Latest Posts</h2><hr>
+        {% for blog in blogs.all %}
+            <a href="#"><h5>{{ blog.title }}</h5></a>
+            {{ blog.pub_date }}
+            <br />
+            <img class="img-fluid"  src="{{ blog.image.url }}" width="250" height="250"/>
+            <br />
+            <p>{{ blog.body }}</p>
+            <hr>
+        {% endfor %}
+    </div>
 
 
     <!-- /END THE FEATURETTES -->
