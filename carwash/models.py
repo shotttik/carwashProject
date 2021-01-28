@@ -25,7 +25,7 @@ class Coupon(models.Model):
 
 
 '''
-    ორდერში ავტომობილის ინფორმაცია იმიტომ მოვაქციე რომ ავტომობილი
+    ორდერში ავტომობილის ინფორმაცია იმიტომ შევიტანე რომ ბევრი ავტომობილი იქნება და ძნელიიქნება კონკრეტულის მოძებნა
 '''
 
 
@@ -66,20 +66,20 @@ class Washer(models.Model):
         verbose_name_plural = 'Washers'
 
 
-class Blog(models.Model):
-    title = models.CharField(max_length=255)
-    pub_date = models.DateTimeField(auto_now=True)
-    body = models.TextField()
-    image = models.ImageField(upload_to='images/')
-    manager = models.ForeignKey(to='carwash.Manager',
-                                on_delete=models.SET_NULL, null=True)  # მენეჯერის წაშლის შემთხვევაში პოსტი რომ დარჩეს
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        verbose_name = 'Blog'
-        verbose_name_plural = 'Blogs'
+# class Blog(models.Model):
+#     title = models.CharField(max_length=255)
+#     pub_date = models.DateTimeField(auto_now=True)
+#     body = models.TextField()
+#     image = models.ImageField(upload_to='images/')
+#     manager = models.ForeignKey(to='carwash.Manager',
+#                                 on_delete=models.SET_NULL, null=True)  # მენეჯერის წაშლის შემთხვევაში პოსტი რომ დარჩეს
+#
+#     def __str__(self):
+#         return self.title
+#
+#     class Meta:
+#         verbose_name = 'Blog'
+#         verbose_name_plural = 'Blogs'
 
 
 class Manager(models.Model):

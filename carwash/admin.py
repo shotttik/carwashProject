@@ -1,5 +1,5 @@
 from django.contrib import admin
-from carwash.models import Coupon, Washer, Manager, Order, Blog
+from carwash.models import Coupon, Washer, Manager, Order
 
 
 @admin.register(Coupon)
@@ -23,6 +23,6 @@ class ManagerAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'age', 'phone', 'email']
 
 
-@admin.register(Blog)
-class BlogAdmin(admin.ModelAdmin):
-    list_display = ['title', 'pub_date', 'manager']
+# @admin.register(Blog)
+# class BlogAdmin(admin.ModelAdmin):
+#     list_display = ['title', 'pub_date', 'manager']

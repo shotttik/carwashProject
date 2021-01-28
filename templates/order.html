@@ -48,8 +48,13 @@
         }
     </style>
 
+    <style>
+        .center {
+    margin-left: auto;
+    margin-right: auto;
+}   </style>
   </head>
-  <body>
+  <body style="background-color: whitesmoke">
 
 
 <header>
@@ -62,16 +67,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link" href="{% url 'team' %}">Team</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="services/">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contact/">Contact us</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="blog/">News</a>
+              <a class="nav-link active " aria-current="page" href="">Orders</a>
             </li>
           </ul>
         </div>
@@ -81,56 +80,61 @@
 <br><br><br>
 
 <main>
+<h2 class="text-center pt-3 " style="color:saddlebrown">Total Orders - {{ orders_count }}</h2>
 
+<br>
+<div class="row">
+    <div class="col">
+        <div class="card card-body" style="background-color: lightgrey">
 
-  <!-- Marketing messaging and featurettes
-  ================================================== -->
-  <!-- Wrap the rest of the page in another container to center all the content. -->
+            <form method="get">
+                {{ order_filter.form }}
 
-  <div class="container marketing">
+                <button class="btn btn-primary type=submit">Search</button>
+            </form>
 
-    <!-- Three columns of text below the carousel -->
-    <div class="row">
-        <h2 class="text-center pt-3">The professional team of the company</h2>
-        <p class="text-center pt-3">We help car wash businesses grow through digitalisation. some random text.</p>
-        {% for washer in washers %}
-      <div class="col-lg-4">
-        <img class="bd-placeholder-img rounded-circle" height=250 width=250 src="{{ washer.image.url }}" />
-
-        <h2>{{ washer.full_name }}</h2>
-        <p>Phone - {{ washer.phone }}</p>
-          <p>In our team since {{ washer.joined }}</p>
-      </div><!-- /.col-lg-4 -->
-        {% endfor %}
-    </div><!-- /.row -->
-  <br>
-    <div class="text text-center" style="color:saddlebrown">
-        <h4>Coupon Statuses Active</h4>
+        </div>
     </div>
+</div>
+<hr>
 
-
-    <!-- START THE FEATURETTES -->
-    {% for coupon in coupons %}
-    <hr class="featurette-divider">
-
-    <div class="row featurette">
-      <div class="col-md-7">
-        <h2 class="featurette-heading">{{ coupon.vip_status }}</h2>
-        <p class="lead">{{ coupon.gift }}</p>
+<div class="container-fluid" style="background-color: whitesmoke">
+  <div class="row">
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <h2 style="color:saddlebrown">Section title</h2>
+      <div class="table-responsive ">
+        <table class="table table-striped center" style="background-color: whitesmoke">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Vehicle Type</th>
+              <th>Plate number</th>
+                <th>Started</th>
+                <th>Finished</th>
+              <th>Price $</th>
+                <th>Coupon</th>
+              <th>Washer</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for order in orders %}
+            <tr>
+              <td>{{ order.pk }}</td>
+              <td>{{ order.type }}</td>
+              <td>{{ order.plate_number }}</td>
+              <td>{{ order.started }}</td>
+                <td>{{ order.finished }}</td>
+              <td>{{ order.price }}</td>
+                <td>{{ order.coupons}}</td>
+                <td>{{ order.washer }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
       </div>
-      <div class="col-md-5">
-        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="200" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
-      </div>
-    </div>
-    <hr class="featurette-divider">
-
-  {% endfor %}
-
-
-    <!-- /END THE FEATURETTES -->
-
-  </div><!-- /.container -->
-
+    </main>
+  </div>
+</div>
 
   <!-- FOOTER -->
   <footer class="container text-center">

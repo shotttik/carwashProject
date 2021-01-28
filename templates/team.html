@@ -49,7 +49,7 @@
     </style>
 
   </head>
-  <body>
+  <body style="background-color: whitesmoke">
 
 
 <header>
@@ -62,17 +62,11 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link " href="{% url 'home' %}">Home</a>
+              <a class="nav-link active" aria-current="page" href="#">Team</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'services' %}">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="">Contact Us</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link "  href="{% url 'blog' %}">News</a>
-            </li>
+              <a class="nav-link" href="{% url 'order' %}">Orders</a>
+              </li>
           </ul>
         </div>
       </div>
@@ -83,15 +77,23 @@
 <main>
 
 
+  <!-- Marketing messaging and featurettes
+  ================================================== -->
+  <!-- Wrap the rest of the page in another container to center all the content. -->
+
   <div class="container marketing">
+
 
     <!-- Three columns of text below the carousel -->
     <div class="row">
-        <h1 class="text-center pt-3">Contact</h1>
-        <p class="text-center pt-3" style="color:gray">Send us an email, give us a call, or message us by using the contact form. We’ll get back to you as soon as possible.</p>
-        <hr>
-        <div class="text text-center" style="color:gray()">
-            <h4>Managers</h4>
+        <h2 class="text-center pt-3">The professional team of the company</h2>
+        <p class="text-center pt-3">We help car wash businesses grow through digitalisation. some random text.</p>
+    <div class="row">
+
+        <div class="text text-center" >
+            <br>
+            <h4 style="color:saddlebrown">Managers</h4>
+            <hr>
         </div>
         {% for manager in managers.all %}
       <div class="col-lg-4">
@@ -103,18 +105,47 @@
       </div><!-- /.col-lg-4 -->
         {% endfor %}
     </div><!-- /.row -->
+    <div class="text text-center">
+        <br> <br>
+        <h4 style="color:saddlebrown">Washers</h4>
+        <hr> <br> <br>
+    </div>
+        {% for washer in washers %}
+      <div class="col-lg-4">
+        <img class="bd-placeholder-img rounded-circle" height=250 width=250 src="{{ washer.image.url }}" />
+
+        <h2>{{ washer.full_name }}</h2>
+        <p>Phone - {{ washer.phone }}</p>
+          <p>In our team since {{ washer.joined }}</p>
+      </div><!-- /.col-lg-4 -->
+        {% endfor %}
+    </div><!-- /.row -->
   <br>
     <div class="text text-center" style="color:saddlebrown">
-
-        <h4>ADDRESS</h4>
-        <p>Car wash Oy
-Itkonniemenkatu 11, 70500 Kuopio
-FINLAND</p>
-        <p>Car wash mail - info@carwash.com</p>
-
+        <br>
+        <h4>Coupon Statuses Active</h4>
     </div>
 
 
+    <!-- START THE FEATURETTES -->
+    {% for coupon in coupons %}
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+      <div class="col-md-7">
+        <h2 class="featurette-heading">{{ coupon.vip_status }}</h2>
+        <p class="lead">{{ coupon.gift }}</p>
+      </div>
+      <div class="col-md-5">
+        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="200" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
+      </div>
+    </div>
+    <hr class="featurette-divider">
+
+  {% endfor %}
+
+
+    <!-- /END THE FEATURETTES -->
 
   </div><!-- /.container -->
 
