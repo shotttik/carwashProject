@@ -9,9 +9,9 @@ def home(request):
                                          'washers': washers})
 
 
-def about(request):
+def contact(request):
     managers = Manager.objects.all
-    return render(request, 'about.html', {'managers': managers})
+    return render(request, 'contact.html', {'managers': managers})
 
 
 def blog(request):

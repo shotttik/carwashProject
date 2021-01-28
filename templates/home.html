@@ -91,12 +91,14 @@
 
     <!-- Three columns of text below the carousel -->
     <div class="row">
+        <h2 class="text-center pt-3">The professional team of the company</h2>
+        <p class="text-center pt-3">We help car wash businesses grow through digitalisation. some random text.</p>
         {% for washer in washers %}
       <div class="col-lg-4">
         <img class="bd-placeholder-img rounded-circle" height=250 width=250 src="{{ washer.image.url }}" />
 
         <h2>{{ washer.full_name }}</h2>
-        <p>{{ washer.phone }}</p>
+        <p>Phone - {{ washer.phone }}</p>
           <p>In our team since {{ washer.joined }}</p>
       </div><!-- /.col-lg-4 -->
         {% endfor %}

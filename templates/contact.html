@@ -68,7 +68,7 @@
               <a class="nav-link" href="#">Services</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="">About us</a>
+              <a class="nav-link active" aria-current="page" href="">Contact</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link "  href="#">News</a>
@@ -87,19 +87,31 @@
 
     <!-- Three columns of text below the carousel -->
     <div class="row">
+        <h1 class="text-center pt-3">Contact</h1>
+        <p class="text-center pt-3" style="color:gray">Send us an email, give us a call, or message us by using the contact form. We’ll get back to you as soon as possible.</p>
+        <hr>
+        <div class="text text-center" style="color:gray()">
+            <h4>Managers</h4>
+        </div>
         {% for manager in managers.all %}
       <div class="col-lg-4">
         <img class="bd-placeholder-img rounded-circle" height=250 width=250 src="{{ manager.image.url }}" />
-
         <h2>{{ manager.full_name }}</h2>
-        <p>{{ manager.email }}</p>
-        <p><a class="btn btn-secondary"   href="#" role="button">View details &raquo;</a></p>
+          <p>Phone - {{ manager.phone }}</p>
+          <p>Age - {{ manager.age }}</p>
+        <p>E-mail - {{ manager.email }}</p>
       </div><!-- /.col-lg-4 -->
         {% endfor %}
     </div><!-- /.row -->
   <br>
     <div class="text text-center" style="color:saddlebrown">
-        <h4>Coupon Statuses Active</h4>
+
+        <h4>ADDRESS</h4>
+        <p>Car wash Oy
+Itkonniemenkatu 11, 70500 Kuopio
+FINLAND</p>
+        <p>Car wash mail - info@carwash.com</p>
+
     </div>
 
 
