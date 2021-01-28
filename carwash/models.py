@@ -23,6 +23,10 @@ class Coupon(models.Model):
         verbose_name = 'Coupon'
         verbose_name_plural = 'Coupons'
 
+'''
+    ორდერში ავტომობილის ინფორმაცია იმიტომ მოვაქციე რომ ავტომობილი
+'''
+
 
 class Order(models.Model):
     type = models.PositiveSmallIntegerField("Vehicle Type", choices=VehicleTypeChoices.choices,
