@@ -14,12 +14,13 @@ class VehicleTypeAdmin(admin.ModelAdmin):
 
 @admin.register(Vehicle)
 class Vehicle(admin.ModelAdmin):
-    list_display = ['plate_number', 'get_type', 'get_price']
+    list_display = ['plate_number', 'get_type', 'get_price', ]
 
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'plate_number', 'type', 'price', 'order_date', 'completion_date', 'washer', 'earned']
+    list_filter = ['order_date', 'completion_date', 'washer']
+    list_display = ['__str__', 'type', 'price', 'order_date', 'completion_date', 'washer', 'earned']
 
 
 @admin.register(Manager)
