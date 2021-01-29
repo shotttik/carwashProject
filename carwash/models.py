@@ -36,7 +36,9 @@ class Washer(models.Model):
 
 
 class Vehicle(models.Model):
-    plate_number = models.CharField(max_length=15)
+    manufacturer = models.CharField(max_length=255, verbose_name="Manufacturer")
+    model = models.CharField(max_length=255, verbose_name='Model')
+    plate_number = models.CharField(max_length=15, verbose_name='Plate Number')
     vehicle_type = models.ForeignKey(to='carwash.VehicleType', on_delete=models.PROTECT)
 
     def __str__(self):
@@ -57,7 +59,7 @@ class Order(models.Model):
     order_date = models.DateTimeField("Order date")
     completion_date = models.DateTimeField("Completion date")
     vehicle = models.ForeignKey(to="carwash.Vehicle", on_delete=models.CASCADE, related_name='orders')
-    washer = models.ForeignKey(to='carwash.Washer',
+    washer = models.ForeignKey(to='carwash.Washer', related_name='orders',
                                on_delete=models.SET_NULL, null=True)  # მრეცხავის წაშლის შემთხვევაში ორდერი რომ დარჩეს
 
     class Meta:
@@ -65,6 +67,9 @@ class Order(models.Model):
         verbose_name_plural = 'Orders'
 
     def __str__(self):
+        return f'{self.vehicle.plate_number}'
+
+    def plate_number(self):
         return f'{self.vehicle.plate_number}'
 
     def price(self):

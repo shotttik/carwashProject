@@ -83,20 +83,6 @@
 <h2 class="text-center pt-3 " style="color:saddlebrown">Total Orders - {{ orders_count }}</h2>
 
 <br>
-<div class="row mx-auto">
-    <div class="col">
-        <div class="card card-body" style="background-color: lightgrey">
-
-            <form method="get">
-                {{ order_filter.form }}
-
-                <button class="btn btn-primary type=submit">Search</button>
-            </form>
-
-        </div>
-    </div>
-</div>
-<hr>
 
 <div class="container-fluid" style="background-color: whitesmoke">
   <div class="row">
@@ -109,9 +95,9 @@
               <th>#</th>
               <th>Vehicle Type</th>
               <th>Plate number</th>
-                <th>Date ordered</th>
+                <th>Order Date</th>
+                <th>Completion Date</th>
               <th>Price $</th>
-                <th>Coupon</th>
               <th>Washer</th>
                 <th>Earned $</th>
             </tr>
@@ -122,9 +108,9 @@
               <td>{{ order.pk }}</td>
               <td>{{ order.type }}</td>
               <td>{{ order.plate_number }}</td>
-              <td>{{ order.date_ordered }}</td>
+              <td>{{ order.order_date }}</td>
+                <td>{{ order.completion_date }}</td>
               <td>{{ order.price }}</td>
-                <td>{{ order.coupons}}</td>
                 <td>{{ order.washer }}</td>
                 <td>{{ order.earned }}</td>
             </tr>

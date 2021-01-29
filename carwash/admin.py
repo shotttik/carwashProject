@@ -19,7 +19,7 @@ class Vehicle(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'type', 'price', 'order_date', 'completion_date', 'washer', 'earned']
+    list_display = ['__str__', 'plate_number', 'type', 'price', 'order_date', 'completion_date', 'washer', 'earned']
 
 
 @admin.register(Manager)
