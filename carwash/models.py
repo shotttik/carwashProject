@@ -69,7 +69,6 @@ class Order(models.Model):
     def __str__(self):
         return f'{self.vehicle.plate_number}'
 
-
     def price(self):
         return self.vehicle.vehicle_type.price
 
