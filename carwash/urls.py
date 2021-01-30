@@ -1,7 +1,6 @@
 from django.urls import path
-from carwash.views import team, order
+from carwash.views import base
 
 urlpatterns = [
-    path('', team, name='team'),
-    path('order/', order, name='order')
+    path('base/', base, name='base')
 ]
