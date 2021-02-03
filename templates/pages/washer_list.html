@@ -6,7 +6,7 @@
 
 		<h2 class="text-center pt-3">The professional team of the company</h2>
 		<p class="text-center pt-3">We help car wash businesses grow through digitalisation. some random text.</p>
-		<div class="row">
+
 			<div class="text text-center">
 				<br> <br>
 				<h4 style="color:saddlebrown">Washers</h4>
@@ -15,6 +15,9 @@
 			</div>
 			{% for washer in washers %}
 
+			{% if forloop.counter0|divisibleby:4 %}
+                <div class="row">
+            {% endif %}
 
 				<div class="col-lg-4">
 					<img class="bd-placeholder-img rounded-circle" height=250 width=250 src="{{ washer.image.url }}"/>
@@ -22,15 +25,18 @@
 					<p>Phone - {{ washer.phone }}</p>
 					<p>In our team since {{ washer.joined }}</p>
 					<p>Washed - {{ washer.washed_count }}</p>
-					<p>Percent per order - {{ washer.percent_per_order }}%</p>
+					<p>Percent per order - {{ washer.salary }}%</p>
 					<p>Earned - {{ washer.washer_earned }}</p>
 					<a class="btn btn-primary" href="{% url 'washer_detail' washer.pk %}" role="button">Read More</a>
 					<br><br>
 				</div><!-- /.col-lg-4 -->
 
+			{% if forloop.counter|divisibleby:4 or forloop.last %}
+            </div><!-- /.row -->
+            {% endif %}
 
 			{% endfor %}
-		</div><!-- /.row -->
+
 		<br>
 
 	</div><!-- /.container -->

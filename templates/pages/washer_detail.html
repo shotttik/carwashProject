@@ -1,7 +1,63 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
+	<h2 class="text-center pt-3">The professional team of the company</h2>
+	<p class="text-center pt-3">We help car wash businesses grow through digitalisation. some random text.</p>
+	<div class="text text-center">
+		<br> <br>
+		<h4 style="color:saddlebrown">Washers</h4>
+		<hr>
+		<br> <br>
+	</div>
+	<div class="row">
+		<div class="col s12 m7">
+			<div class="text text-center">
+
+				<img class="bd-placeholder-img rounded-circle" height=250 width=250 src="{{ washer.image.url }}"/>
+				{% if washer.first_name %}
+					<h2>{{ washer.get_full_name }}</h2>
+				{% endif %}
+				<p>E-Mail - {{ washer.email }}</p>
+				<p>Phone - {{ washer.phone }}</p>
+				<p>In our team since {{ washer.joined }}</p>
+				<p>Washed - {{ washer.washed_count }}</p>
+				<p>Percent per order - {{ washer.salary }}%</p>
+				<p>Earned - {{ washer.washer_earned }}</p>
+				<br><br>
+			</div>
+		</div>
+		<div class="col s12 m5">
+			<p>
+				<button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+				        data-bs-target="#week" aria-expanded="false" aria-controls="week">
+					Week
+				</button>
+				<button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+				        data-bs-target="#month" aria-expanded="false" aria-controls="month">
+					Month
+				</button>
+				<button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+				        data-bs-target="#year" aria-expanded="false" aria-controls="year">
+					Year
+				</button>
+			</p>
+			<div class="collapse" id="week">
+				<div class="card card-body">
+					<p style="color: green">Week</p>
+				</div>
+			</div>
+			<div class="collapse" id="month">
+				<div class="card card-body">
+					<p style="color: blue">Month</p>
+				</div>
+			</div>
+			<div class="collapse" id="year">
+				<div class="card card-body">
+					<p style="color: red">Year</p>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 {% endblock %}
