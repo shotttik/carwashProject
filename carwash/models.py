@@ -12,6 +12,14 @@ class VehicleType(models.Model):
         return f'{self.type}'
 
 
+class WashType(models.Model):
+    name = models.CharField(max_length=50, verbose_name="Vehicle Type", unique=True)
+    precentage = models.IntegerField(verbose_name="Percentage of price", default=100)
+
+    def __str__(self):
+        return self.name
+
+
 class Vehicle(models.Model):
     manufacturer = models.CharField(max_length=255, verbose_name="Manufacturer")
     model = models.CharField(max_length=255, verbose_name='Model')
@@ -28,11 +36,12 @@ class Vehicle(models.Model):
 
 class Order(models.Model):
     vehicle = models.ForeignKey(to="carwash.Vehicle", on_delete=models.PROTECT, related_name='orders')
+    wash_type = models.ForeignKey(to='carwash.WashType', related_name='orders', on_delete=models.PROTECT)
     price = models.DecimalField(max_digits=4, decimal_places=2, verbose_name='Price', default=0)
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name="Created date")
     order_date = models.DateTimeField("Order date")
     completion_date = models.DateTimeField("Completion date")
     washer = models.ForeignKey(to="user.User", on_delete=models.SET_NULL, null=True, related_name='orders')
-    earned = models.DecimalField(max_digits=4, decimal_places=2, verbose_name="Earned", default=0)
 
     class Meta:
         verbose_name = 'Order'
@@ -43,6 +52,5 @@ class Order(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.pk:
-            self.price = self.vehicle.vehicle_type.price
-            self.earned = self.vehicle.vehicle_type.price * self.washer.percent_per_order / 100
+            self.price = self.vehicle.vehicle_type.price * self.wash_type.precentage / 100
         super(Order, self).save(*args, **kwargs)

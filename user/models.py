@@ -31,7 +31,7 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault('status', 3)
         extra_fields.setdefault('phone', 0)
         extra_fields.setdefault('joined', timezone.now())
-        extra_fields.setdefault('percent_per_order', 0)
+        extra_fields.setdefault('salary', 0)
         extra_fields.setdefault('image', "images/placeholder.jpg")
         extra_fields.setdefault('birthdate', timezone.now())
 
@@ -51,9 +51,8 @@ class User(AbstractUser):
     joined = models.DateField(verbose_name="Joined")
     image = models.ImageField(upload_to='images/')
     status = models.PositiveSmallIntegerField(choices=Status.choices)
-    salary = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Earned/Salary", default=0,
+    salary = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Salary", default=0,
                                  help_text="In USD")
-    percent_per_order = models.PositiveSmallIntegerField(verbose_name="Percent Per Order", default=0, help_text="%")
 
     objects = UserManager()
     USERNAME_FIELD = 'email'

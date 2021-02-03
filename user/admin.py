@@ -9,7 +9,7 @@ class Employee(UserAdmin):
     change_user_password_template = None
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('first_name', 'last_name')}),
+        ('Personal info', {'fields': ('first_name', 'last_name', 'salary')}),
         ('Permissions', {
             'fields': ('percent_per_order', 'is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
         }),
@@ -19,7 +19,7 @@ class Employee(UserAdmin):
         (None, {
             'classes': ('wide',),
             'fields': ('email', 'password1', 'password2', 'birthdate', 'image',
-                       'phone', 'joined', 'status'),
+                       'phone', 'joined', 'status', 'salary'),
         }),
     )
     list_display = ('email', 'first_name', 'last_name', 'is_staff')

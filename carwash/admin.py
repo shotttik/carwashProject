@@ -14,4 +14,4 @@ class Vehicle(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'price', 'washer', 'earned']
+    list_display = ['__str__', 'price', 'washer']
