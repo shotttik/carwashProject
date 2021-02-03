@@ -1,12 +1,15 @@
 from django.shortcuts import render, get_object_or_404
-from user.status_choices import Status
-from user.models import User
-from carwash.models import Order
 from django.db.models import Count, F, Q, ExpressionWrapper, DecimalField, Sum
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse
+
 from decimal import Decimal
 from typing import Dict, Optional
+
+from user.status_choices import Status
+from user.models import User
+from carwash.models import Order
+from django.utils import timezone
 
 
 def washer_list(request: WSGIRequest) -> HttpResponse:
@@ -35,12 +38,46 @@ def washer_list(request: WSGIRequest) -> HttpResponse:
     return render(request, 'pages/washer_list.html', context=context)
 
 
-def washer_detail(request, pk: int):
+def washer_detail(request: WSGIRequest, pk: int) -> HttpResponse:
+    now = timezone.now()
     washer: User = get_object_or_404(
         User.objects.filter(status=Status.washer.value),
         pk=pk
     )
-    return render(request, template_name='pages/washer_detail.html', context={'washer': washer})
+    earned_money_q = ExpressionWrapper(
+        F('price') * F('washer__salary') / Decimal('100.0'),
+        output_field=DecimalField()
+    )
+    washer_salary_info: Dict[str, Optional[Decimal]] = washer.orders.filter(completion_date__isnull=False)\
+        .annotate(earned_per_order=earned_money_q)\
+        .aggregate(
+        earned_money_year=Sum(
+            'earned_per_order',
+            filter=Q(completion_date__gte=now - timezone.timedelta(days=365))
+        ),
+        washed_last_year=Count(
+            'id',
+            filter=Q(completion_date__gte=now - timezone.timedelta(days=365))
+        ),
+        earned_money_month=Sum(
+            'earned_per_order',
+            filter=Q(completion_date__gte=now - timezone.timedelta(weeks=4))
+        ),
+        washed_last_month=Count(
+            'id',
+            filter=Q(completion_date__gte=now - timezone.timedelta(weeks=4))
+        ),
+        earned_money_week=Sum(
+            'earned_per_order',
+            filter=Q(completion_date__gte=now - timezone.timedelta(days=7))
+        ),
+        washed_last_week=Count(
+            'id',
+            filter=Q(completion_date__gte=now - timezone.timedelta(days=7))
+        )
+    )
+    return render(request, template_name='pages/washer_detail.html', context={'washer': washer,
+                                                                              **washer_salary_info})
 
 # def order(request):
 #     orders = Order.objects.all()[::-1]

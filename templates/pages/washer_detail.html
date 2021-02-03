@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-	<h2 class="text-center pt-3">The professional team of the company</h2>
-	<p class="text-center pt-3">We help car wash businesses grow through digitalisation. some random text.</p>
+	<br>
 	<div class="text text-center">
 		<br> <br>
-		<h4 style="color:saddlebrown">Washers</h4>
+		<h4 style="color:saddlebrown">Washer</h4>
 		<hr>
 		<br> <br>
 	</div>
@@ -19,41 +18,42 @@
 				{% endif %}
 				<p>E-Mail - {{ washer.email }}</p>
 				<p>Phone - {{ washer.phone }}</p>
-				<p>In our team since {{ washer.joined }}</p>
-				<p>Washed - {{ washer.washed_count }}</p>
 				<p>Percent per order - {{ washer.salary }}%</p>
-				<p>Earned - {{ washer.washer_earned }}</p>
+				<p>In our team since {{ washer.joined }}</p>
 				<br><br>
 			</div>
 		</div>
 		<div class="col s12 m5">
 			<p>
-				<button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+				<button class="btn btn-success" type="button" data-bs-toggle="collapse"
 				        data-bs-target="#week" aria-expanded="false" aria-controls="week">
 					Week
 				</button>
-				<button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+				<button class="btn btn-warning" type="button" data-bs-toggle="collapse"
 				        data-bs-target="#month" aria-expanded="false" aria-controls="month">
 					Month
 				</button>
-				<button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+				<button class="btn btn-danger" type="button" data-bs-toggle="collapse"
 				        data-bs-target="#year" aria-expanded="false" aria-controls="year">
 					Year
 				</button>
 			</p>
 			<div class="collapse" id="week">
 				<div class="card card-body">
-					<p style="color: green">Week</p>
+					<p style="color: green">Earned: {{ earned_money_week }}$</p>
+					<p style="color: green">Washed: {{ washed_last_week }}</p>
 				</div>
 			</div>
 			<div class="collapse" id="month">
 				<div class="card card-body">
-					<p style="color: blue">Month</p>
+					<p style="color: sandybrown">Earned: {{ earned_money_month }}$</p>
+					<p style="color: sandybrown">Washed: {{ washed_last_month }}</p>
 				</div>
 			</div>
 			<div class="collapse" id="year">
 				<div class="card card-body">
-					<p style="color: red">Year</p>
+					<p style="color: red">Earned: {{ earned_money_year }}$</p>
+					<p style="color: red">Washed: {{ washed_last_year }}</p>
 				</div>
 			</div>
 		</div>

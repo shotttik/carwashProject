@@ -10,8 +10,7 @@
 			<div class="text text-center">
 				<br> <br>
 				<h4 style="color:saddlebrown">Washers</h4>
-				<p style="color: darkgray">Total Washed - {{ total }} | Profit - <strong>{{ profit|default_if_none:0 }}$
-				</strong></p>
+				<p style="color: darkgray">Total Washed - {{ total }} | Profit - {{ profit|default_if_none:0 }}$</p>
 				<hr>
 				<br> <br>
 			</div>
@@ -24,11 +23,8 @@
 				<div class="col-lg-4">
 					<img class="bd-placeholder-img rounded-circle" height=250 width=250 src="{{ washer.image.url }}"/>
 					<h2>{{ washer.get_full_name }}</h2>
-					<p>Phone - {{ washer.phone }}</p>
-					<p>In our team since {{ washer.joined }}</p>
 					<p>Washed - {{ washer.washed_count }}</p>
-					<p>Percent per order - {{ washer.salary }}%</p>
-					<p>Earned - {{ washer.washer_earned }}</p>
+					<p>In our team since {{ washer.joined }}</p>
 					<a class="btn btn-primary" href="{% url 'washer_detail' washer.pk %}" role="button">Read More</a>
 					<br><br>
 				</div><!-- /.col-lg-4 -->
