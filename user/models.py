@@ -52,7 +52,7 @@ class User(AbstractUser):
     image = models.ImageField(upload_to='images/')
     status = models.PositiveSmallIntegerField(choices=Status.choices)
     salary = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Salary", default=0,
-                                 help_text="In USD")
+                                 help_text="In Percent")
 
     objects = UserManager()
     USERNAME_FIELD = 'email'
