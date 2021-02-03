@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from user.status_choices import Status
 from user.models import User
 # from carwash.models import Order
@@ -10,8 +10,12 @@ def washer_list(request):
     return render(request, 'pages/washer_list.html', {'washers': washers})
 
 
-def washer_detail(request):
-    return render(request, template_name='pages/washer_detail.html')
+def washer_detail(request, pk: int):
+    washer: User = get_object_or_404(
+        User.objects.filter(status=Status.washer.value),
+        pk=pk
+    )
+    return render(request, template_name='pages/washer_detail.html', context={'washer': washer})
 
 # def order(request):
 #     orders = Order.objects.all()[::-1]
