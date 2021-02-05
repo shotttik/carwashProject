@@ -7,33 +7,45 @@
 		<h2 class="text-center pt-3">The professional team of the company</h2>
 		<p class="text-center pt-3">We help car wash businesses grow through digitalisation. some random text.</p>
 
-			<div class="text text-center">
-				<br> <br>
-				<h4 style="color:saddlebrown">Washers</h4>
-				<p style="color: darkgray">Total Washed - {{ total }} | Profit - {{ profit|default_if_none:0 }}$</p>
-				<hr>
-				<br> <br>
+		<div class="text text-center">
+			<br> <br>
+			<h4 style="color:saddlebrown">Washers</h4>
+			<p style="color: darkgray">Total Washed - {{ total }} | Profit - {{ profit|default_if_none:0 }}$</p>
+			<hr>
+		</div>
+		<div class="row">
+		<form class="row gx-3 gy-2 align-items-center" method="get" action=".">
+			<div class="col-sm-3">
+				<label class="visually-hidden" for="search_washer">Name</label>
+				<input type="text" class="form-control" id="search_washer" name="q" placeholder="search washer"
+				       value="{{ request.GET.q }}">
 			</div>
-			{% for washer in washers %}
+			<div class="col-auto">
+				<button type="submit" class="btn btn-primary">Search</button>
+			</div>
+		</form>
+		</div>
+		<br>
+		{% for washer in washers %}
 
 			{% if forloop.counter0|divisibleby:4 %}
-                <div class="row">
-            {% endif %}
+				<div class="row">
+			{% endif %}
 
-				<div class="col-lg-4">
-					<img class="bd-placeholder-img rounded-circle" height=250 width=250 src="{{ washer.image.url }}"/>
-					<h2>{{ washer.get_full_name }}</h2>
-					<p>Washed - {{ washer.washed_count }}</p>
-					<p>In our team since {{ washer.joined }}</p>
-					<a class="btn btn-primary" href="{% url 'washer_detail' washer.pk %}" role="button">Read More</a>
-					<br><br>
-				</div><!-- /.col-lg-4 -->
+		<div class="col-lg-4">
+			<img class="bd-placeholder-img rounded-circle" height=250 width=250 src="{{ washer.image.url }}"/>
+			<h2>{{ washer.get_full_name }}</h2>
+			<p>Washed - {{ washer.washed_count }}</p>
+			<p>In our team since {{ washer.joined }}</p>
+			<a class="btn btn-primary" href="{% url 'washer_detail' washer.pk %}" role="button">Read More</a>
+			<br><br>
+		</div><!-- /.col-lg-4 -->
 
-			{% if forloop.counter|divisibleby:4 or forloop.last %}
-            </div><!-- /.row -->
-            {% endif %}
+		{% if forloop.counter|divisibleby:4 or forloop.last %}
+			</div><!-- /.row -->
+		{% endif %}
 
-			{% endfor %}
+		{% endfor %}
 
 		<br>
 

@@ -19,7 +19,7 @@ def washer_list(request: WSGIRequest) -> HttpResponse:
 
     if q:
         washer_q &= Q(first_name__icontains=q[-1]) | Q(last_name__icontains=q[-1])
-        order_q &= Q(washer__first_name__icontains=q[-1]) | Q(employee__last_name__icontains=q[-1])
+        order_q &= Q(washer__first_name__icontains=q[-1]) | Q(washer__last_name__icontains=q[-1])
 
     profit_q = ExpressionWrapper(
         F('price') * (1 - F('washer__salary') / Decimal('100.0')),
