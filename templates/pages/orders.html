@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
 
 <main>
+<br> <br> <br>
 <h2 class="text-center pt-3 " style="color:saddlebrown">Total Orders - {{ orders_count }}</h2>
-
+<hr>
 <br>
 
 <div class="container-fluid" style="background-color: whitesmoke">
   <div class="row">
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mx-auto">
-      <h2 style="color:saddlebrown" >Section title</h2>
+      <h2 style="color:chocolate" >Latest orders</h2>
       <div class="table-responsive ">
         <table class="table table-striped center" style="background-color: whitesmoke">
           <thead>
@@ -23,20 +23,18 @@
                 <th>Completion Date</th>
               <th>Price $</th>
               <th>Washer</th>
-                <th>Earned $</th>
             </tr>
           </thead>
           <tbody>
           {% for order in orders %}
             <tr>
               <td>{{ order.pk }}</td>
-                <td>{{ order }}</td>
-              <td>{{ order.vehicle.vehicle_type }}</td>
+                <td>{{ order.vehicle.vehicle_type.type }}</td>
+              <td>{{ order.vehicle.plate_number }}</td>
               <td>{{ order.order_date }}</td>
                 <td>{{ order.completion_date }}</td>
               <td>{{ order.price }}</td>
                 <td>{{ order.washer }}</td>
-                <td>{{ order.earned }}</td>
             </tr>
           {% endfor %}
           </tbody>

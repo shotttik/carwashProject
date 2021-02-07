@@ -90,8 +90,8 @@ def washer_detail(request: WSGIRequest, pk: int) -> HttpResponse:
                           vehicle_type_id=vehicle_type)
         vehicle.save()
         wash_type = request.POST.get('wash_type')
-        order = Order(vehicle=vehicle, wash_type_id=wash_type, order_date=timezone.now(), washer_id=pk)
-        order.save()
+        new_order = Order(vehicle=vehicle, wash_type_id=wash_type, order_date=timezone.now(), washer_id=pk)
+        new_order.save()
         return redirect('washer_detail', pk=pk)
 
     return render(request, template_name='pages/washer_detail.html', context={'washer': washer,
@@ -99,8 +99,9 @@ def washer_detail(request: WSGIRequest, pk: int) -> HttpResponse:
                                                                               'vehicle_types': vehicle_types,
                                                                               'wash_types': wash_types})
 
-# def order(request):
-#     orders = Order.objects.all()[::-1]
-#     orders_count = Order.objects.count()
-#     return render(request, 'pages/order.html', {'orders': orders,
-#                                                 'orders_count': orders_count})
+
+def orders(request):
+    all_order = Order.objects.all()[::-1]
+    orders_count = Order.objects.count()
+    return render(request, 'pages/orders.html', {'orders': all_order,
+                                                 'orders_count': orders_count})
