@@ -8,7 +8,7 @@ from typing import Dict, Optional
 
 from user.status_choices import Status
 from user.models import User
-from carwash.models import Order
+from carwash.models import Order, VehicleType, WashType
 from django.utils import timezone
 
 
@@ -18,7 +18,7 @@ def washer_list(request: WSGIRequest) -> HttpResponse:
     q = request.GET.get('q')
 
     if q:
-        washer_q &= Q(first_name__icontains=q[-1]) | Q(last_name__icontains=q[-1])
+        washer_q &= Q(first_name__icontains=q) | Q(last_name__icontains=q)
         order_q &= Q(washer__first_name__icontains=q[-1]) | Q(washer__last_name__icontains=q[-1])
 
     profit_q = ExpressionWrapper(
@@ -76,8 +76,23 @@ def washer_detail(request: WSGIRequest, pk: int) -> HttpResponse:
             filter=Q(completion_date__gte=now - timezone.timedelta(days=7))
         )
     )
+    vehicle_types = VehicleType.objects.all()
+    wash_types = WashType.objects.all()
+    # if request.method == "POST":
+    #     new_manufacturer = request.POST.get('manufacturer')
+    #     new_model = request.POST.get('model')
+    #     new_plate_number = request.POST.get('plate_number')
+    #     new_vehicle = request.POST.get('vehicle')
+    #     new_vehicle_type = request.POST.get('vehicle_type')
+    #     new_wash_type = request.POST.get('wash_type')
+    #     new_washer = washer.pk
+    #     new_order_date = timezone.now()
+    #     new_order = Order('')
+
     return render(request, template_name='pages/washer_detail.html', context={'washer': washer,
-                                                                              **washer_salary_info})
+                                                                              **washer_salary_info,
+                                                                              'vehicle_types': vehicle_types,
+                                                                              'wash_types': wash_types})
 
 # def order(request):
 #     orders = Order.objects.all()[::-1]

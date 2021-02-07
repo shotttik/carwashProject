@@ -40,7 +40,7 @@ class Order(models.Model):
     price = models.DecimalField(max_digits=4, decimal_places=2, verbose_name='Price', default=0)
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Created date")
     order_date = models.DateTimeField("Order date")
-    completion_date = models.DateTimeField("Completion date")
+    completion_date = models.DateTimeField("Completion date", blank=True, null=True)
     washer = models.ForeignKey(to="user.User", on_delete=models.SET_NULL, null=True, related_name='orders')
 
     class Meta:
