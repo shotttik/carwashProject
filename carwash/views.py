@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Count, F, Q, ExpressionWrapper, DecimalField, Sum
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse
@@ -78,16 +78,16 @@ def washer_detail(request: WSGIRequest, pk: int) -> HttpResponse:
     )
     vehicle_types = VehicleType.objects.all()
     wash_types = WashType.objects.all()
-    # if request.method == "POST":
-    #     new_manufacturer = request.POST.get('manufacturer')
-    #     new_model = request.POST.get('model')
-    #     new_plate_number = request.POST.get('plate_number')
-    #     new_vehicle = request.POST.get('vehicle')
-    #     new_vehicle_type = request.POST.get('vehicle_type')
-    #     new_wash_type = request.POST.get('wash_type')
-    #     new_washer = washer.pk
-    #     new_order_date = timezone.now()
-    #     new_order = Order('')
+    if request.method == 'POST':
+        manufacturer = request.POST.get('manufacturer')
+        model = request.POST.get('model')
+        plate_number = request.POST.get('plate_number')
+        vehicle_type = request.POST.get('vehicle_type')
+        wash_type = request.POST.get('wash_type')
+        print(manufacturer, model, plate_number, vehicle_type, wash_type)
+        order = Order(order_date=timezone.now(), wash_type_id=wash_type, washer_id=pk)
+        order.save()
+        return redirect('washer_detail', pk=pk)
 
     return render(request, template_name='pages/washer_detail.html', context={'washer': washer,
                                                                               **washer_salary_info,
