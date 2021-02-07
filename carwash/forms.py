@@ -1,8 +1,14 @@
 from django import forms
-from carwash.models import Order
+from .models import Vehicle
 
 
-class OrderForm(forms.ModelForm):
+class VehicleForm(forms.ModelForm):
     class Meta:
-        model = Order
-        fields = ('wash_type', 'price', 'order_date', 'washer')
+        model = Vehicle
+        fields = ['plate_number', ]
+
+    def clean_plate_number(self):
+        plate_number = self.cleaned_data.get('plate_number')
+        if not plate_number.isdigit() and plate_number.isalpha():
+            raise forms.ValidationError("Please Enter Correctly. ex.`AA000BB`")
+        return plate_number

@@ -11,7 +11,6 @@ from user.models import User
 from carwash.models import Order, VehicleType, WashType, Vehicle
 from django.utils import timezone
 
-
 def washer_list(request: WSGIRequest) -> HttpResponse:
     washer_q = Q()
     order_q = Q()
@@ -83,14 +82,18 @@ def washer_detail(request: WSGIRequest, pk: int) -> HttpResponse:
         model = request.POST.get('model')
         plate_number = request.POST.get('plate_number')
         vehicle_type = request.POST.get('vehicle_type')
-        print(manufacturer, model, plate_number, vehicle_type)
         vehicle = Vehicle(manufacturer=manufacturer,
                           model=model,
                           plate_number=plate_number,
                           vehicle_type_id=vehicle_type)
         vehicle.save()
         wash_type = request.POST.get('wash_type')
-        new_order = Order(vehicle=vehicle, wash_type_id=wash_type, order_date=timezone.now(), washer_id=pk)
+        completion_date = request.POST.get('completion_date')
+        new_order = Order(vehicle=vehicle,
+                          wash_type_id=wash_type,
+                          order_date=timezone.now(),
+                          washer_id=pk,
+                          completion_date=completion_date)
         new_order.save()
         return redirect('washer_detail', pk=pk)
 
