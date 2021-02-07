@@ -8,7 +8,7 @@ from typing import Dict, Optional
 
 from user.status_choices import Status
 from user.models import User
-from carwash.models import Order, VehicleType, WashType
+from carwash.models import Order, VehicleType, WashType, Vehicle
 from django.utils import timezone
 
 
@@ -83,11 +83,24 @@ def washer_detail(request: WSGIRequest, pk: int) -> HttpResponse:
         model = request.POST.get('model')
         plate_number = request.POST.get('plate_number')
         vehicle_type = request.POST.get('vehicle_type')
-        wash_type = request.POST.get('wash_type')
-        print(manufacturer, model, plate_number, vehicle_type, wash_type)
-        order = Order(order_date=timezone.now(), wash_type_id=wash_type, washer_id=pk)
-        order.save()
+        print(manufacturer, model, plate_number, vehicle_type)
+        vehicle = Vehicle(manufacturer=manufacturer,
+                          model=model,
+                          plate_number=plate_number,
+                          vehicle_type_id=vehicle_type)
+        vehicle.save()
         return redirect('washer_detail', pk=pk)
+
+    # if request.method == 'POST':
+    #     manufacturer = request.POST.get('manufacturer')
+    #     model = request.POST.get('model')
+    #     plate_number = request.POST.get('plate_number')
+    #     vehicle_type = request.POST.get('vehicle_type')
+    #     wash_type = request.POST.get('wash_type')
+    #     print(manufacturer, model, plate_number, vehicle_type, wash_type)
+    #     order = Order(order_date=timezone.now(), wash_type_id=wash_type, washer_id=pk)
+    #     order.save()
+    #     return redirect('washer_detail', pk=pk)
 
     return render(request, template_name='pages/washer_detail.html', context={'washer': washer,
                                                                               **washer_salary_info,

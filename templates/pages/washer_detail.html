@@ -84,21 +84,49 @@
 					      <option value="{{ vehicle_type.pk }}">{{ vehicle_type.type }}</option>
 						    {% endfor %}
 					    </select>
-					  </div>
-						<div class="col-md-4">
-					    <label for="inputWashType" class="form-label">Wash Type</label>
-					    <select id="inputWashType" class="form-select" name="wash_type">
-					      <option selected>Choose...</option>
-						    {% for wash_type in wash_types %}
-					      <option value="{{ wash_type.pk }}">{{ wash_type.name }}</option>
-						    {% endfor %}
-					    </select>
 					  </div><br>
 					  <div class="col-12">
 					    <button type="submit" class="btn btn-primary">Submit</button>
 					  </div>
 
 					</form>
+{#					<form class="col s12" action="." method="POST">#}
+{#						{% csrf_token %}#}
+{#					  <div class="col-md-6">#}
+{#					    <label for="inputVehicleManufacturer" class="form-label">Manufacturer</label>#}
+{#					    <input type="text" class="form-control" id="inputVehicleManufacturer" name="manufacturer">#}
+{#					  </div>#}
+{#					  <div class="col-md-6">#}
+{#					    <label for="inputVehicleModel" class="form-label">Model</label>#}
+{#					    <input type="text" class="form-control" id="inputVehicleModel" name="model">#}
+{#					  </div>#}
+{#						<div class="col-md-6">#}
+{#					    <label for="inputVehiclePlateNumber" class="form-label">Plate Number</label>#}
+{#					    <input type="text" class="form-control" id="inputVehiclePlateNumber" name="plate_number">#}
+{#					    </div>#}
+{#					  <div class="col-md-4">#}
+{#					    <label for="inputVehicleType" class="form-label">Vehicle Type</label>#}
+{#					    <select id="inputVehicleType" class="form-select" name="vehicle_type">#}
+{#					      <option selected>Choose...</option>#}
+{#						    {% for vehicle_type in vehicle_types %}#}
+{#					      <option value="{{ vehicle_type.pk }}">{{ vehicle_type.type }}</option>#}
+{#						    {% endfor %}#}
+{#					    </select>#}
+{#					  </div>#}
+{#						<div class="col-md-4">#}
+{#					    <label for="inputWashType" class="form-label">Wash Type</label>#}
+{#					    <select id="inputWashType" class="form-select" name="wash_type">#}
+{#					      <option selected>Choose...</option>#}
+{#						    {% for wash_type in wash_types %}#}
+{#					      <option value="{{ wash_type.pk }}">{{ wash_type.name }}</option>#}
+{#						    {% endfor %}#}
+{#					    </select>#}
+{#					  </div><br>#}
+{#					  <div class="col-12">#}
+{#					    <button type="submit" class="btn btn-primary">Submit</button>#}
+{#					  </div>#}
+{##}
+{#					</form>#}
 				</div>
 		</div>
 	</div>
