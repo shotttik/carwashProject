@@ -89,18 +89,10 @@ def washer_detail(request: WSGIRequest, pk: int) -> HttpResponse:
                           plate_number=plate_number,
                           vehicle_type_id=vehicle_type)
         vehicle.save()
+        wash_type = request.POST.get('wash_type')
+        order = Order(vehicle=vehicle, wash_type_id=wash_type, order_date=timezone.now(), washer_id=pk)
+        order.save()
         return redirect('washer_detail', pk=pk)
-
-    # if request.method == 'POST':
-    #     manufacturer = request.POST.get('manufacturer')
-    #     model = request.POST.get('model')
-    #     plate_number = request.POST.get('plate_number')
-    #     vehicle_type = request.POST.get('vehicle_type')
-    #     wash_type = request.POST.get('wash_type')
-    #     print(manufacturer, model, plate_number, vehicle_type, wash_type)
-    #     order = Order(order_date=timezone.now(), wash_type_id=wash_type, washer_id=pk)
-    #     order.save()
-    #     return redirect('washer_detail', pk=pk)
 
     return render(request, template_name='pages/washer_detail.html', context={'washer': washer,
                                                                               **washer_salary_info,

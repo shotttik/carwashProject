@@ -84,7 +84,16 @@
 					      <option value="{{ vehicle_type.pk }}">{{ vehicle_type.type }}</option>
 						    {% endfor %}
 					    </select>
+						  <div class="col-md-4">
+					    <label for="inputWashType" class="form-label">Wash Type</label>
+					    <select id="inputWashType" class="form-select" name="wash_type">
+					      <option selected>Choose...</option>
+						    {% for wash_type in wash_types %}
+					      <option value="{{ wash_type.pk }}">{{ wash_type.name }}</option>
+						    {% endfor %}
+					    </select>
 					  </div><br>
+					  </div>
 					  <div class="col-12">
 					    <button type="submit" class="btn btn-primary">Submit</button>
 					  </div>
