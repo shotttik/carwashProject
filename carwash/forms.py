@@ -1,14 +1,14 @@
 from django import forms
-from .models import Vehicle
+from django.forms import ModelChoiceField
+from carwash.models import Vehicle, Order, WashType, VehicleType
 
 
 class VehicleForm(forms.ModelForm):
+    # manufacturer
+    # model
+    # plate_number =
+    vehicle_type = ModelChoiceField(empty_label='Choose Type', queryset=VehicleType.objects.all())
+
     class Meta:
         model = Vehicle
-        fields = ['plate_number', ]
-
-    def clean_plate_number(self):
-        plate_number = self.cleaned_data.get('plate_number')
-        if not plate_number.isdigit() and plate_number.isalpha():
-            raise forms.ValidationError("Please Enter Correctly. ex.`AA000BB`")
-        return plate_number
+        fields = ('manufacturer', 'model', 'plate_number', 'vehicle_type')

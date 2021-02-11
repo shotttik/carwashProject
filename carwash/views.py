@@ -89,11 +89,12 @@ def washer_detail(request: WSGIRequest, pk: int) -> HttpResponse:
                           vehicle_type_id=vehicle_type)
         vehicle.save()
         wash_type = request.POST.get('wash_type')
+        order_date = request.POST.get('order_date')
         completion_date = request.POST.get('completion_date')
         new_order = Order(vehicle=vehicle,
                           wash_type_id=wash_type,
-                          order_date=timezone.now(),
                           washer_id=pk,
+                          order_date=order_date,
                           completion_date=completion_date)
         new_order.save()
         # return redirect('washer_detail', pk=pk)
