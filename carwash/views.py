@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Count, F, Q, ExpressionWrapper, DecimalField, Sum
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from decimal import Decimal
 from typing import Dict, Optional
@@ -128,10 +129,28 @@ def washer_detail(request: WSGIRequest, pk: int) -> HttpResponse:
 
 
 def orders(request):
-    all_order = Order.objects.all()[::-1]
+    all_order = Order.objects.all()
     orders_count = Order.objects.count()
-    return render(request, 'pages/orders.html', {'orders': all_order,
-                                                 'orders_count': orders_count})
+
+    paginator = Paginator(all_order, 5)
+    page = request.GET.get('PAGE')
+
+    try:
+        items = paginator.page(page)
+    except PageNotAnInteger:
+        items = paginator.page(1)
+    except EmptyPage:
+        items = paginator.page(paginator.num_pages)
+    index = items.number - 1
+    max_index = len(paginator.page_range)
+    start_index = index - 5 if index >= 5 else 0
+    end_index = index + 5 if index <= max_index - 5 else max_index
+    page_range = paginator.page_range[start_index:end_index]
+
+    return render(request, 'pages/orders.html', {'orders': all_order[::-1],
+                                                 'orders_count': orders_count,
+                                                 'page_range': page_range,
+                                                 'items': items})
 
 
 def homepage(request):
