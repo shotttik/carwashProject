@@ -11,6 +11,7 @@ from user.models import User
 from carwash.models import Order, VehicleType, WashType, Vehicle
 from django.utils import timezone
 
+
 def washer_list(request: WSGIRequest) -> HttpResponse:
     washer_q = Q()
     order_q = Q()
@@ -95,7 +96,7 @@ def washer_detail(request: WSGIRequest, pk: int) -> HttpResponse:
                           washer_id=pk,
                           completion_date=completion_date)
         new_order.save()
-        return redirect('washer_detail', pk=pk)
+        # return redirect('washer_detail', pk=pk)
 
     return render(request, template_name='pages/washer_detail.html', context={'washer': washer,
                                                                               **washer_salary_info,
@@ -108,3 +109,8 @@ def orders(request):
     orders_count = Order.objects.count()
     return render(request, 'pages/orders.html', {'orders': all_order,
                                                  'orders_count': orders_count})
+
+
+def homepage(request):
+    return render(request, 'pages/homepage.html')
+
