@@ -11,6 +11,8 @@ from user.models import User
 from carwash.models import Order, VehicleType, WashType, Vehicle
 from django.utils import timezone
 
+from carwash.forms import VehicleForm, OrderForm
+
 
 def washer_list(request: WSGIRequest) -> HttpResponse:
     washer_q = Q()
@@ -78,31 +80,50 @@ def washer_detail(request: WSGIRequest, pk: int) -> HttpResponse:
     )
     vehicle_types = VehicleType.objects.all()
     wash_types = WashType.objects.all()
+    # if request.method == 'POST':
+    #     manufacturer = request.POST.get('manufacturer')
+    #     model = request.POST.get('model')
+    #     plate_number = request.POST.get('plate_number')
+    #     vehicle_type = request.POST.get('vehicle_type')
+    #     vehicle = Vehicle(manufacturer=manufacturer,
+    #                       model=model,
+    #                       plate_number=plate_number,
+    #                       vehicle_type_id=vehicle_type)
+    #     vehicle.save()
+    #     wash_type = request.POST.get('wash_type')
+    #     try:
+    #         order_date = request.POST.get('order_date')
+    #         completion_date = request.POST.get('completion_date')
+    #         new_order = Order(vehicle=vehicle,
+    #                           wash_type_id=wash_type,
+    #                           washer_id=pk,
+    #                           order_date=order_date,
+    #                           completion_date=completion_date)
+    #         new_order.save()
+
+    vehicle_form = VehicleForm()
+    order_form = OrderForm()
     if request.method == 'POST':
-        manufacturer = request.POST.get('manufacturer')
-        model = request.POST.get('model')
-        plate_number = request.POST.get('plate_number')
-        vehicle_type = request.POST.get('vehicle_type')
-        vehicle = Vehicle(manufacturer=manufacturer,
-                          model=model,
-                          plate_number=plate_number,
-                          vehicle_type_id=vehicle_type)
-        vehicle.save()
-        wash_type = request.POST.get('wash_type')
-        order_date = request.POST.get('order_date')
-        completion_date = request.POST.get('completion_date')
-        new_order = Order(vehicle=vehicle,
-                          wash_type_id=wash_type,
-                          washer_id=pk,
-                          order_date=order_date,
-                          completion_date=completion_date)
-        new_order.save()
-        # return redirect('washer_detail', pk=pk)
+        vehicle_form = VehicleForm(request.POST)
+        order_form = OrderForm(request.POST)
+        if vehicle_form.is_valid() and order_form.is_valid():
+            vehicle: Vehicle = vehicle_form.save(commit=False)
+            vehicle.save()
+            order: Order = order_form.save(commit=False)
+            order.vehicle = vehicle
+            order.completion_date = timezone.now()
+            order.order_date = timezone.now()
+            order.washer_id = pk
+            order.save()
+            return redirect('washer_detail', pk=pk)
+
 
     return render(request, template_name='pages/washer_detail.html', context={'washer': washer,
                                                                               **washer_salary_info,
                                                                               'vehicle_types': vehicle_types,
-                                                                              'wash_types': wash_types})
+                                                                              'wash_types': wash_types,
+                                                                              'vehicle_form': vehicle_form,
+                                                                              'order_form': order_form})
 
 
 def orders(request):
@@ -114,4 +135,3 @@ def orders(request):
 
 def homepage(request):
     return render(request, 'pages/homepage.html')
-
