@@ -111,12 +111,13 @@ def washer_detail(request: WSGIRequest, pk: int) -> HttpResponse:
             vehicle.save()
             order: Order = order_form.save(commit=False)
             order.vehicle = vehicle
-            order.completion_date = timezone.now()
-            order.order_date = timezone.now()
+            order_date = request.POST.get('order_date')
+            completion_date = request.POST.get('completion_date')
+            order.order_date = order_date
+            order.completion_date = completion_date
             order.washer_id = pk
             order.save()
             return redirect('washer_detail', pk=pk)
-
 
     return render(request, template_name='pages/washer_detail.html', context={'washer': washer,
                                                                               **washer_salary_info,

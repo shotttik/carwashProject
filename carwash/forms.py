@@ -44,7 +44,13 @@ class OrderForm(forms.ModelForm):
                                        ))
     # completion_date = forms.CharField(
     #     widget=forms.TextInput(attrs={
-    #         'class': 'form-control',
+    #         'class': 'datetimepicker1',
+    #     })
+    # )
+    #
+    # order_date = forms.CharField(
+    #     widget=forms.TextInput(attrs={
+    #         'class': 'datetimepicker1',
     #     })
     # )
 

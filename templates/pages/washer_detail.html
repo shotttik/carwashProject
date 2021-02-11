@@ -142,11 +142,44 @@
 				<div class="form-group">
 					<form method="POST">
 						{% csrf_token %}
-						{{ vehicle_form.as_p }}
-						{{ order_form.as_p }}
-						<div class="column">
-						<button type="submit" class="btn btn-primary">Submit</button>
-				</div>
+						<div class="col-md-3">
+							{{ vehicle_form.as_p }}
+							{{ order_form.as_p }}
+
+							<label for="datetimepicker1" class="form-label">Order Date</label>
+							<div class='input-group date' id='datetimepicker1'>
+								<input type='text' class="form-control" name="order_date" />
+								<span class="input-group-addon">
+	            <span class="glyphicon glyphicon-calendar"></span>
+	          </span>
+							</div>
+
+							<label for="datetimepicker2" class="form-label">Completion Date</label>
+							<div class='input-group date' id='datetimepicker2'>
+								<input type='text' class="form-control" name="completion_date" />
+								<span class="input-group-addon">
+	            <span class="glyphicon glyphicon-calendar"></span>
+	          </span>
+							</div>
+							<br>
+							<div class="column">
+						<button type="submit" class="btn btn-primary">Add Order</button>
+					</div>
+						</div>
+
+						<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+
+					<link rel="stylesheet"
+					      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+					<link rel="stylesheet"
+					      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+						<script>$(function () {
+                        $('#datetimepicker1').datetimepicker({
+	                        format: 'YYYY-MM-DD h:m'
+                        }); $('#datetimepicker2').datetimepicker({format: 'YYYY-MM-DD h:m'});
+                    });</script>
 					</form>
 				</div>
 
