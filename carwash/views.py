@@ -129,28 +129,21 @@ def washer_detail(request: WSGIRequest, pk: int) -> HttpResponse:
 
 
 def orders(request):
-    all_order = Order.objects.all()
+    all_order = Order.objects.all()[::-1]
     orders_count = Order.objects.count()
+    page = request.GET.get('page', 1)
 
     paginator = Paginator(all_order, 5)
-    page = request.GET.get('PAGE')
-
     try:
-        items = paginator.page(page)
+        allorder = paginator.page(page)
     except PageNotAnInteger:
-        items = paginator.page(1)
+        allorder = paginator.page(1)
     except EmptyPage:
-        items = paginator.page(paginator.num_pages)
-    index = items.number - 1
-    max_index = len(paginator.page_range)
-    start_index = index - 5 if index >= 5 else 0
-    end_index = index + 5 if index <= max_index - 5 else max_index
-    page_range = paginator.page_range[start_index:end_index]
+        allorder = paginator.page(paginator.num_pages)
 
     return render(request, 'pages/orders.html', {'orders': all_order[::-1],
                                                  'orders_count': orders_count,
-                                                 'page_range': page_range,
-                                                 'items': items})
+                                                 'allorder': allorder})
 
 
 def homepage(request):

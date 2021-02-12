@@ -26,7 +26,7 @@
             </tr>
           </thead>
           <tbody>
-          {% for order in items %}
+          {% for order in allorder %}
             <tr>
               <td>{{ order.pk }}</td>
                 <td>{{ order.vehicle.vehicle_type.type }}</td>
@@ -40,36 +40,37 @@
           </tbody>
         </table>
       </div>
-    {% if items.has_other_pages %}
+
+    {% if allorder.has_other_pages %}
 	    <div class="col-6 offset-3 text-center-pagination-set">
-	        <nav aria-label="">
-		        <ul class="pagination">
-			        {% if items.has_previous %}
-				        <li class="page-item"><a class="page-link"
-				        href="?page={{ items.previous_page_number }}"><<</a>
-				        </li>
+		    <nav aria-label="">
+			    <ul class="pagination">
+
+			        {% if allorder.has_previous %}
+				        <li><a href="?page={{ allorder.previous_page_number }}">&laquo;</a></li>
 				    {% else %}
-				        <li class="page-item disabled">
-					        <a class="page-link"><span><<</span></a>
-				        </li>
+				        <li class="disabled"><span>&laquo;</span></li>
 			        {% endif %}
-			        {% for i in page_range %}
-				        {% if items.number == i %}
-					        <li class="page-item-active">
-						        <a class="page-link" href="#">{{ i }}<span class="sr-only"></span></a>
-					        </li>
-				        {% else %}
-							<li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-				        {% endif %}
-		            {% endfor %}
-		            {% if items.has_next %}
-			            <li class="page-item"><a class="page-link" aria-label="Next" href="?page={{ items.next_page_number }}">>></a></li>
-			        {% else %}
-						<li class="page-item disabled"><a class="page-link"><span>>></span></a></li>
-			        {% endif %}
-		        </ul>
-	        </nav>
+
+				    {% for i in allorder.paginator.page_range %}
+				        {% if allorder.number == i %}
+					        <li class="active"><span>{{ i }}<span class="sr-only">(current)</span></span></li>
+					    {% else %}
+					        <li><a href="?page={{ i }}">{{ i }}</a> </li>
+					    {% endif %}
+
+				    {% endfor %}
+
+			        {% if allorder.has_next %}
+				        <li><a href="?page={{ allorder.next_page_number }}">&raquo;</a></li>
+				    {% else %}
+				        <li class="disabled"><span>&raquo;</span></li>
+				    {% endif %}
+
+			    </ul>
+		    </nav>
 	    </div>
+
     {% endif %}
     </main>
   </div>
@@ -78,6 +79,11 @@
 
 </main>
 
+	<style>
+	ul {
+		justify-content: center;
+	}
+	</style>
 
   </body>
 </html>
