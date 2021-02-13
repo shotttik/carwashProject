@@ -1,13 +1,26 @@
-
 <form method="POST">
 	{% csrf_token %}
 	<div class="col-md-3">
-		{{ vehicle_form.as_p }}
+		{% for error in vehicle_form.errors.manufacturer %}
+			<p class="errors" style="color: red">{{ error }}</p>
+		{% endfor %}
+		<label>Manufacturer</label>
+		{{ vehicle_form.manufacturer }}
+		<label>Model</label>
+		{{ vehicle_form.model }}
+		<label>Plate Number</label>
+		{{ vehicle_form.plate_number }}
+		{% for error in vehicle_form.errors.plate_number %}
+			<p class="errors" style="color: red">{{ error }}</p>
+		{% endfor %}
+		<label>Vehicle Type</label>
+		{{ vehicle_form.vehicle_type }}
+
 		{{ order_form.as_p }}
 
 		<label for="datetimepicker1" class="form-label">Order Date</label>
 		<div class='input-group date' id='datetimepicker1'>
-			<input type='text' class="form-control" name="order_date"/>
+			<input type='text' class="form-control" name="order_date" required/>
 			<span class="input-group-addon">
 	            <span class="glyphicon glyphicon-calendar"></span>
 	          </span>
@@ -15,7 +28,7 @@
 
 		<label for="datetimepicker2" class="form-label">Completion Date</label>
 		<div class='input-group date' id='datetimepicker2'>
-			<input type='text' class="form-control" name="completion_date"/>
+			<input type='text' class="form-control" name="completion_date" required/>
 			<span class="input-group-addon">
 	            <span class="glyphicon glyphicon-calendar"></span>
 	          </span>

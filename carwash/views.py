@@ -86,18 +86,21 @@ def washer_detail(request: WSGIRequest, pk: int) -> HttpResponse:
     if request.method == 'POST':
         vehicle_form = VehicleForm(request.POST)
         order_form = OrderForm(request.POST)
-        if vehicle_form.is_valid() and order_form.is_valid():
-            vehicle: Vehicle = vehicle_form.save(commit=False)
-            vehicle.save()
-            order: Order = order_form.save(commit=False)
-            order.vehicle = vehicle
-            order_date = request.POST.get('order_date')
-            completion_date = request.POST.get('completion_date')
-            order.order_date = order_date
-            order.completion_date = completion_date
-            order.washer_id = pk
-            order.save()
-            return redirect('washer_detail', pk=pk)
+        try:
+            if vehicle_form.is_valid() and order_form.is_valid():
+                vehicle: Vehicle = vehicle_form.save(commit=False)
+                vehicle.save()
+                order: Order = order_form.save(commit=False)
+                order.vehicle = vehicle
+                order_date = request.POST.get('order_date')
+                completion_date = request.POST.get('completion_date')
+                order.order_date = order_date
+                order.completion_date = completion_date
+                order.washer_id = pk
+                order.save()
+                return redirect('washer_detail', pk=pk)
+        except TypeError:
+            vehicle_form.add_error('manufacturer', 'Please Input Correctly! DONT ENTER SYMBOLS!')
 
     return render(request, template_name='pages/washer_detail.html', context={'washer': washer,
                                                                               **washer_salary_info,

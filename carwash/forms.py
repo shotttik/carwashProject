@@ -1,9 +1,11 @@
 from django import forms
+
 from carwash.models import Vehicle, Order, WashType, VehicleType
+from carwash.validators import validate_plate_number, validate_manufacturer
 
 
 class VehicleForm(forms.ModelForm):
-    manufacturer = forms.CharField(widget=forms.TextInput(
+    manufacturer = forms.CharField(validators=[validate_manufacturer], widget=forms.TextInput(
         attrs={
             'class': 'form-control',
         }
@@ -13,7 +15,7 @@ class VehicleForm(forms.ModelForm):
             'class': 'form-control',
         }
     ))
-    plate_number = forms.CharField(widget=forms.TextInput(
+    plate_number = forms.CharField(validators=[validate_plate_number], widget=forms.TextInput(
         attrs={
             'class': 'form-control',
         }
@@ -28,13 +30,6 @@ class VehicleForm(forms.ModelForm):
     class Meta:
         model = Vehicle
         fields = ('manufacturer', 'model', 'plate_number', 'vehicle_type')
-
-        # widgets = {
-        #     'manufacturer': forms.TextInput(attrs={'class': 'form-control'}),
-        #     'model': forms.TextInput(attrs={'class': 'form-control'}),
-        #     'plate_number': forms.TextInput(attrs={'class': 'form-control'}),
-        #     'vehicle_type': forms.Select(attrs={'class': 'form-control'}),
-        # }
 
 
 class OrderForm(forms.ModelForm):
