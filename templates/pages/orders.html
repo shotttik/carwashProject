@@ -2,99 +2,105 @@
 
 {% block content %}
 
-<main>
-<br> <br> <br>
-<h2 class="text-center pt-3 " style="color:saddlebrown">Total Orders - {{ orders_count }}</h2>
-<hr>
-<br>
+	<main>
+		<br> <br> <br>
+		<h2 class="text-center pt-3 " style="color:saddlebrown">Total Orders - {{ orders_count }}</h2>
+		<hr>
+		<br>
 
-<div class="container-fluid" style="background-color: whitesmoke">
-  <div class="row">
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mx-auto">
-      <h2 style="color:chocolate" >Latest orders</h2>
-      <div class="table-responsive ">
-        <table class="table table-striped center" style="background-color: whitesmoke">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Vehicle Type</th>
-              <th>Plate number</th>
-                <th>Order Date</th>
-                <th>Completion Date</th>
-              <th>Price $</th>
-              <th>Washer</th>
-            </tr>
-          </thead>
-          <tbody>
-          {% for order in allorder %}
-            <tr>
-              <td>{{ order.pk }}</td>
-                <td>{{ order.vehicle.vehicle_type.type }}</td>
-              <td>{{ order.vehicle.plate_number }}</td>
-              <td>{{ order.order_date }}</td>
-                <td>{{ order.completion_date }}</td>
-              <td>{{ order.price }}</td>
-                <td>{{ order.washer }}</td>
-            </tr>
-          {% endfor %}
-          </tbody>
-        </table>
-      </div>
+		<div class="container-fluid" style="background-color: whitesmoke">
+			<div class="row">
+				<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mx-auto">
+					<h2 style="color:chocolate">Latest orders</h2>
+					<div class="table-responsive ">
+						<table class="table table-striped center" style="background-color: whitesmoke">
+							<thead>
+							<tr>
+								<th>#</th>
+								<th>Vehicle Type</th>
+								<th>Plate number</th>
+								<th>Order Date</th>
+								<th>Completion Date</th>
+								<th>Price $</th>
+								<th>Washer</th>
+							</tr>
+							</thead>
+							<tbody>
+							{% for order in allorder %}
+								<tr>
+									<td>{{ order.pk }}</td>
+									<td>{{ order.vehicle.vehicle_type.type }}</td>
+									<td>{{ order.vehicle.plate_number }}</td>
+									<td>{{ order.order_date }}</td>
+									<td>{{ order.completion_date }}</td>
+									<td>{{ order.price }}</td>
+									<td>{{ order.washer }}</td>
+								</tr>
+							{% endfor %}
+							</tbody>
+						</table>
+					</div>
 
-    {% if allorder.has_other_pages %}
-	    <div class="col-6 offset-3 text-center-pagination-set">
-		    <nav aria-label="Page navigation">
-			    <ul class="pagination">
+					{% if allorder.has_other_pages %}
+						<div class="col-6 offset-3 text-center-pagination-set">
+							<nav aria-label="Page navigation">
+								<ul class="pagination">
 
-				        {% if allorder.has_previous %}
-					            <li class="page-item"><a class="page-link" href="?page={{ allorder.previous_page_number }}">&laquo;</a></li>
-					    {% else %}
-					        <li class="page-item disabled">
-						        <a class="page-link">
-							        <span aria-hidden="true">&laquo;</span>
-						        </a>
-					        </li>
-				        {% endif %}
+									{% if allorder.has_previous %}
+										<li class="page-item"><a class="page-link"
+										                         href="?page={{ allorder.previous_page_number }}">&laquo;</a>
+										</li>
+									{% else %}
+										<li class="page-item disabled">
+											<a class="page-link">
+												<span aria-hidden="true">&laquo;</span>
+											</a>
+										</li>
+									{% endif %}
 
-					    {% for i in allorder.paginator.page_range %}
-					        {% if allorder.number == i %}
-						        <li class="page-item"><a class="page-link">{{ i }}<span class="sr-only"></span></a></li>
-						    {% else %}
-						        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a> </li>
-						    {% endif %}
+									{% for i in allorder.paginator.page_range %}
+										{% if allorder.number == i %}
+											<li class="page-item"><a class="page-link">{{ i }}<span
+													class="sr-only"></span></a></li>
+										{% else %}
+											<li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a>
+											</li>
+										{% endif %}
 
-					    {% endfor %}
+									{% endfor %}
 
-				        {% if allorder.has_next %}
-					        <li class="page-item"><a class="page-link" href="?page={{ allorder.next_page_number }}">&raquo;</a></li>
-					    {% else %}
-					        <li class="page-item disabled">
-						        <a class="page-link">
-							        <span aria-hidden="true">&raquo;</span>
-						        </a>
-					        </li>
-					    {% endif %}
+									{% if allorder.has_next %}
+										<li class="page-item"><a class="page-link"
+										                         href="?page={{ allorder.next_page_number }}">&raquo;</a>
+										</li>
+									{% else %}
+										<li class="page-item disabled">
+											<a class="page-link">
+												<span aria-hidden="true">&raquo;</span>
+											</a>
+										</li>
+									{% endif %}
 
-			    </ul>
-		    </nav>
-	    </div>
+								</ul>
+							</nav>
+						</div>
 
-    {% endif %}
-    </main>
-  </div>
-</div>
+					{% endif %}
+				</main>
+			</div>
+		</div>
 
 
-</main>
+	</main>
 
 	<style>
-	ul {
-		justify-content: center;
-	}
+        ul {
+            justify-content: center;
+        }
 	</style>
 
-  </body>
-</html>
+	</body>
+	</html>
 
 
 {% endblock %}

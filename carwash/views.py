@@ -81,27 +81,6 @@ def washer_detail(request: WSGIRequest, pk: int) -> HttpResponse:
     )
     vehicle_types = VehicleType.objects.all()
     wash_types = WashType.objects.all()
-    # if request.method == 'POST':
-    #     manufacturer = request.POST.get('manufacturer')
-    #     model = request.POST.get('model')
-    #     plate_number = request.POST.get('plate_number')
-    #     vehicle_type = request.POST.get('vehicle_type')
-    #     vehicle = Vehicle(manufacturer=manufacturer,
-    #                       model=model,
-    #                       plate_number=plate_number,
-    #                       vehicle_type_id=vehicle_type)
-    #     vehicle.save()
-    #     wash_type = request.POST.get('wash_type')
-    #     try:
-    #         order_date = request.POST.get('order_date')
-    #         completion_date = request.POST.get('completion_date')
-    #         new_order = Order(vehicle=vehicle,
-    #                           wash_type_id=wash_type,
-    #                           washer_id=pk,
-    #                           order_date=order_date,
-    #                           completion_date=completion_date)
-    #         new_order.save()
-
     vehicle_form = VehicleForm()
     order_form = OrderForm()
     if request.method == 'POST':
@@ -147,4 +126,11 @@ def orders(request):
 
 
 def homepage(request):
-    return render(request, 'pages/homepage.html')
+    vehicle_types = VehicleType.objects.all()
+    wash_types = WashType.objects.all()
+    washers = User.objects.filter(status=Status.washer.value)
+    orders_count = Order.objects.all().count()
+    return render(request, 'pages/homepage.html', {'vehicle_types': vehicle_types,
+                                                   'washers': washers,
+                                                   'wash_types': wash_types,
+                                                   'orders_count': orders_count})

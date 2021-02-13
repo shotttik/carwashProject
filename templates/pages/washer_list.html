@@ -3,7 +3,7 @@
 
 	<div class="container marketing">
 
-
+		<br>
 		<h2 class="text-center pt-3">The professional team of the company</h2>
 		<p class="text-center pt-3">We help car wash businesses grow through digitalisation. some random text.</p>
 
@@ -14,16 +14,16 @@
 			<hr>
 		</div>
 		<div class="row">
-		<form class="row gx-3 gy-2 align-items-center" method="get" action=".">
-			<div class="col-sm-3">
-				<label class="visually-hidden" for="search_washer">Name</label>
-				<input type="text" class="form-control" id="search_washer" name="q" placeholder="search washer"
-				       value="{{ request.GET.q }}">
-			</div>
-			<div class="col-auto">
-				<button type="submit" class="btn btn-primary">Search</button>
-			</div>
-		</form>
+			<form class="row gx-3 gy-2 align-items-center" method="get" action=".">
+				<div class="col-sm-3">
+					<label class="visually-hidden" for="search_washer">Name</label>
+					<input type="text" class="form-control" id="search_washer" name="q" placeholder="search washer"
+					       value="{{ request.GET.q }}">
+				</div>
+				<div class="col-auto">
+					<button type="submit" class="btn btn-primary">Search</button>
+				</div>
+			</form>
 		</div>
 		<br>
 		{% for washer in washers %}
