@@ -109,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tbilisi'
 
 USE_I18N = True
 
@@ -133,3 +133,7 @@ MEDIA_ROOT = 'media'
 MEDIA_URL = '/media/'
 
 AUTH_USER_MODEL = 'user.User'
+
+LOGIN_URL = 'user:user_login'
+LOGOUT_REDIRECT_URL = 'user:user_logout'
+LOGIN_REDIRECT_URL = 'washer_list'

@@ -74,6 +74,21 @@
 					<li class="nav-item">
 						<a class="nav-link " href="{% url 'orders' %}">Orders</a>
 					</li>
+					{% if user.is_authenticated %}
+					<li class="nav-item">
+						<span class="nav-link">{{ user.email }}</span>
+					</li>
+					<li class="nav-item">
+						<form action="{% url 'user:user_logout' %}" method="POST">
+							{% csrf_token %}
+						<div class="row">
+							<div class="column">
+								<button type="submit" class="btn btn-warning">Sign Out</button>
+							</div>
+						</div>
+						</form>
+					</li>
+					{% endif %}
 				</ul>
 			</div>
 		</div>
