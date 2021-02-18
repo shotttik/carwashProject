@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class="container pt-30">
+		<div class="section">
+			<div class="row">
+				<div class="col s12">
+
+					<form method="POST">
+						{% csrf_token %}
+
+
+						<div class="row">
+							<div class="col m6 s12">
+								<label>First Name</label>
+								{{ form.first_name }}
+								{% for error in form.errors.first_name %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+							<div class="col m6 s12">
+								<label>Last Name</label>
+								{{ form.last_name }}
+								{% for error in form.errors.last_name %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col m6 s12">
+								<label>Email</label>
+								{{ form.email }}
+								{% for error in form.errors.email %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+							<div class="col m6 s12">
+								<label>Phone Number</label>
+								{{ form.phone }}
+								{% for error in form.errors.phone %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col m6 s12">
+								<label>Password</label>
+								{{ form.password1 }}
+								{% for error in form.errors.password1 %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+							<div class="col m6 s12">
+								<label>Confirm Password</label>
+								{{ form.password2 }}
+								{% for error in form.errors.password2 %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col m6 s12">
+								<label for="datetimepicker1" class="form-label">Birthdate</label>
+								<div class='input-group date' id='datetimepicker1'>
+									<input type='text' class="form-control" name="birthdate" required/>
+									<span class="input-group-addon">
+						            <span class="glyphicon glyphicon-calendar"></span>
+						          </span>
+								</div>
+							</div>
+							<div class="col m6 s12">
+								<label>Image</label>
+								{{ form.image }}
+								{% for error in form.errors.image %}
+									<p class="error">{{ error }}</p>
+								{% endfor %}
+							</div>
+						</div>
+						<div class="row">
+							<div class="column">
+								<button type="submit" class="btn btn-primary">Sign Up</button>
+							</div>
+						</div>
+						<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+						<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+						<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+
+						<link rel="stylesheet"
+						      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+						<link rel="stylesheet"
+						      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+						<script>$(function () {
+                            $('#datetimepicker1').datetimepicker({
+                                format: 'YYYY-MM-DD'
+                            });
+                        });</script>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="section">
+		<div class="row">
+			<div class="col-lg-3 mx-auto">
+				<a href="{% url 'user:user_login' %}" >Already registered?</a>
+			</div>
+		</div>
+	</div>
+
+
+	<style>
+        .error {
+            color: red;
+        }
+	</style>
+
+{% endblock %}
